@@ -6,8 +6,8 @@
     <home-swiper class="home-swiper" :banner="banner" />
     <home-recommend :recommend="recommend" />
     <home-feature />
-    <tab-control class="tab-control" :title="title" />
-    <goods-list :goods="[1,2,3,4]" />
+    <tab-control class="tab-control" :title="title" @tabControlClick="tabClick" />
+    <goods-list :goods="showGoods" />
     <ul>
       <li>li</li>
       <li>li</li>
@@ -116,7 +116,8 @@ export default {
           page: 0,
           list: []
         }
-      }
+      },
+      currentType: "pop"
     };
   },
   created() {
@@ -128,6 +129,11 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
+    }
+  },
   methods: {
     getHomeGoods(type) {
       const page = this.goods[type].page;
@@ -135,6 +141,20 @@ export default {
         console.log(res);
         // this.goods[type].list = res
       });
+    },
+    tabClick(index) {
+      console.log(index);
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+      }
     }
   }
 };

@@ -6,7 +6,11 @@
     <home-swiper class="home-swiper" :banner="banner" />
     <home-recommend :recommend="recommend" />
     <home-feature />
-    <tab-control class="tab-control" :title="title" @tabControlClick="tabClick" />
+    <tab-control
+      class="tab-control"
+      :title="title"
+      @tabControlClick="tabClick"
+    />
     <goods-list :goods="showGoods" />
     <ul>
       <li>li</li>
@@ -96,7 +100,7 @@ export default {
     HomeRecommend,
     HomeFeature,
     TabControl,
-    GoodsList
+    GoodsList,
   },
   data() {
     return {
@@ -105,23 +109,23 @@ export default {
       title: ["流行", "新款", "精选"],
       goods: {
         pop: {
-          page: 0,
-          list: []
+          page: 1,
+          list: [],
         },
         new: {
-          page: 0,
-          list: []
+          page: 1,
+          list: [],
         },
         sell: {
-          page: 0,
-          list: []
-        }
+          page: 1,
+          list: [],
+        },
       },
-      currentType: "pop"
+      currentType: "pop",
     };
   },
   created() {
-    getHomeMultidata().then(res => {
+    getHomeMultidata().then((res) => {
       this.banner = res.data.banner.list;
       this.recommend = res.data.recommend.list;
     });
@@ -132,14 +136,13 @@ export default {
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
-    }
+    },
   },
   methods: {
     getHomeGoods(type) {
       const page = this.goods[type].page;
-      getHomeGoodsdata(type, page).then(res => {
-        console.log(res);
-        // this.goods[type].list = res
+      getHomeGoodsdata(type, page).then((res) => {
+        this.goods[type].list = res.data.list;
       });
     },
     tabClick(index) {
@@ -155,8 +158,8 @@ export default {
           this.currentType = "sell";
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

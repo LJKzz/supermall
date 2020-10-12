@@ -28,14 +28,21 @@ export default {
   width: 100%;
   display: flex;
   padding: 15px 0 20px;
-  border-bottom: 12px solid #ca6779;
+  /* border-bottom: 12px solid #ca6779; */
   border-radius: 8px;
+}
+.recommend::before {
+  height: 10px;
+  background-color: #ca6779;
 }
 .recommend div {
   flex: 1;
   text-align: center;
 }
 .recommend div a img {
-  width: 80%;
+  width: 75%;
+}
+.recommend div > h4 {
+  margin-top: 3px;
 }
 </style>

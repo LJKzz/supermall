@@ -14,7 +14,7 @@ VueRouter.prototype.replace = function push(location) {
 }
 const routes = [{
     path: "/",
-    redirect: '/home'
+    component: Home
   },
   {
     path: "/home",

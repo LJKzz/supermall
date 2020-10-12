@@ -10,11 +10,14 @@ import MainTabBar from "components/content/mainTabbar/MainTabBar.vue";
 export default {
   name: "App",
   components: {
-    MainTabBar,
+    MainTabBar
   }
 };
 </script>
 
 <style>
 @import "assets/css/base.css";
+.tab-bar {
+  bottom: -1px;
+}
 </style>

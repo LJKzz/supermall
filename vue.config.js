@@ -1,5 +1,8 @@
 module.exports = {
   lintOnSave: false,
+  css: {
+    extract: false
+  },
   configureWebpack: {
     resolve: {
       alias: {
@@ -10,5 +13,7 @@ module.exports = {
         'views': '@/views',
       }
     }
-  }
+  },
+
+  publicPath: './'
 }

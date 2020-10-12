@@ -13,6 +13,9 @@ export default {
 </script>
 
 <style>
+.feature {
+  font-size: 0px;
+}
 .feature img {
   width: 100%;
 }

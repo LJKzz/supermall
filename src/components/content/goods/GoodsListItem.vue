@@ -1,8 +1,6 @@
 <template>
-  <div class="goods-list-item">
-    <a :href="goodsItem.link">
-      <img @load="imageLoad" :src="goodsItem.show.img" alt />
-    </a>
+  <div class="goods-list-item" @click="toDetail(goodsItem.iid)">
+    <img @load="imageLoad" :src="goodsItem.show.img" alt />
     <h5>{{goodsItem.title}}</h5>
     <span class="price">
       <span>￥</span>
@@ -38,6 +36,9 @@ export default {
     },
     imageLoad() {
       this.$bus.$emit("itemImageLoad");
+    },
+    toDetail(id) {
+      this.$router.push("/detail?q=" + id);
     }
   }
 };

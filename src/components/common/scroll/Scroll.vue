@@ -36,10 +36,12 @@ export default {
       this.$emit("scroll", position);
     });
     // 监听上拉加载
-    this.scroll.on("pullingUp", () => {
-      // console.log("上拉加载");
-      this.$emit("pullingUp");
-    });
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        // console.log("上拉加载");
+        this.$emit("pullingUp");
+      });
+    }
   },
   methods: {
     scrollTo(x, y, time = 500) {

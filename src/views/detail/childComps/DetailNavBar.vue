@@ -43,6 +43,11 @@ export default {
 </script>
 
 <style>
+.detail-nav-bar {
+  background-color: #fff;
+  position: relative;
+  z-index: 99;
+}
 .detail-nav-bar .title {
   display: flex;
   font-size: 14px;

@@ -22,6 +22,6 @@ export default {
 @import "assets/css/base.css";
 .tab-bar {
   bottom: -1px;
-  z-index: 999;
+  z-index: 9;
 }
 </style>

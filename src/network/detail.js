@@ -13,7 +13,7 @@ export function getDetail(iid) {
 }
 
 // 提取商品信息
-export class GoodsInfo {
+export class Goods {
   constructor(itemInfo, columns, services) {
     this.title = itemInfo.title
     this.desc = itemInfo.desc
@@ -35,5 +35,12 @@ export class Shop {
     this.sells = shopInfo.cSells;
     this.score = shopInfo.score;
     this.goodsCount = shopInfo.cGoods
+  }
+}
+// 提取评论
+export class Comment {
+  constructor(rate) {
+    this.comment = rate.list[0]
+    this.comment.rate = rate.cRate;
   }
 }

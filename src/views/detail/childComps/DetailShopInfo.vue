@@ -1,5 +1,5 @@
 <template>
-  <div class="details-shop-info" v-if="Object.keys(shop).length-1 !==0">
+  <div class="detail-shop-info" v-if="Object.keys(shop).length-1 !==0">
     <div class="shop-top">
       <img :src="shop.logo" alt />
       <h4 class="title">{{shop.name}}</h4>
@@ -25,6 +25,9 @@
         </table>
       </div>
     </div>
+    <div class="shop-bottom">
+      <div class="shop-bottom-info">进店逛逛</div>
+    </div>
   </div>
 </template>
 
@@ -49,23 +52,22 @@ export default {
 </script>
 
 <style>
-.details-shop-info {
-  padding: 30px 10px;
+.detail-shop-info > div {
+  margin: 10px 0;
 }
-.details-shop-info .shop-top {
+.detail-shop-info .shop-top {
   display: flex;
   align-items: center;
 }
-.details-shop-info .shop-top img {
+.detail-shop-info .shop-top img {
   width: 42px;
   height: 42px;
   border-radius: 50%;
   margin-right: 10px;
 }
-.details-shop-info .shop-middle {
+.detail-shop-info .shop-middle {
   display: flex;
   align-items: center;
-  margin: 20px 0;
   color: #333;
 }
 .shop-middle .shop-middle-item {
@@ -76,6 +78,7 @@ export default {
   text-align: center;
   justify-content: space-around;
   padding: 0 7px;
+  font-size: 14px;
 }
 .shop-middle-left .sells-count,
 .shop-middle-left .goods-count {
@@ -87,6 +90,7 @@ export default {
 }
 .shop-middle .shop-middle-right table {
   margin: 0 auto;
+  font-size: 14px;
 }
 .shop-middle .shop-middle-right table tr {
   line-height: 24px;
@@ -105,5 +109,16 @@ export default {
 }
 .shop-middle .shop-middle-right table tr .better-active {
   background-color: #ff1100;
+}
+.shop-bottom .shop-bottom-info {
+  width: 85px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 5px 10px;
+  background-color: #6a6272;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 1px;
 }
 </style>

@@ -4,7 +4,11 @@
     <div class="info-price">
       <span class="new-price">{{goods.newPrice}}</span>
       <span class="old-price">{{goods.oldPrice}}</span>
-      <span class="discount" :style="{backgroundColor:goods.discountBgc}">{{goods.discount}}</span>
+      <span
+        class="discount"
+        :style="{backgroundColor:goods.discountBgc}"
+        v-show="goods.discount"
+      >{{goods.discount}}</span>
     </div>
     <div class="info-other">
       <span>{{goods.columns[0]}}</span>
@@ -35,12 +39,9 @@ export default {
 </script>
 
 <style>
-.detail-base-info {
-  padding: 0 10px;
-}
 .detail-base-info > div {
   width: 100%;
-  margin: 15px 0;
+  margin: 20px 0;
 }
 .detail-base-info .info-title {
   font-weight: bold;
@@ -70,7 +71,7 @@ export default {
 .detail-base-info .info-services {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .detail-base-info .info-services .info-services-item img {

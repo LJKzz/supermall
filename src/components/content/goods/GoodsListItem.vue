@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-list-item" @click="toDetail(goodsItem.iid)">
-    <img @load="imageLoad" :src="goodsItem.show.img" alt />
+  <div class="goods-list-item" @click="toDetail(goodsId)">
+    <img @load="imageLoad" :src="showImage" alt />
     <h5>{{goodsItem.title}}</h5>
     <span class="price">
       <span>￥</span>
@@ -30,15 +30,31 @@ export default {
   created() {
     this.getPrice();
   },
+  computed: {
+    showImage() {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    },
+    goodsId() {
+      return this.goodsItem.iid || this.goodsItem.shop_id;
+    }
+  },
   methods: {
     getPrice() {
       this.price = this.goodsItem.price.split(".");
     },
     imageLoad() {
-      this.$bus.$emit("itemImageLoad");
+      if (this.$route.path.indexOf("/home")) {
+        this.$bus.$emit("homeItemImageLoad");
+      } else if (this.$route.path.indexOf("/detail")) {
+        this.$bus.$emit("detailItemImageLoad");
+      }
     },
     toDetail(id) {
-      this.$router.push("/detail?q=" + id);
+      if (this.goodsItem.iid) {
+        this.$router.push("/detail?q=" + id);
+      } else if (this.goodsItem.shop_id) {
+        // this.$router.push("?q=" + id);
+      }
     }
   }
 };

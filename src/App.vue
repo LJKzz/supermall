@@ -20,8 +20,4 @@ export default {
 
 <style>
 @import "assets/css/base.css";
-.tab-bar {
-  bottom: -1px;
-  z-index: 9;
-}
 </style>

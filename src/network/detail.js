@@ -1,14 +1,21 @@
 import {
   request
 } from './request'
-// 请求详情页数据
 
+// 请求详情页数据
 export function getDetail(iid) {
   return request({
     url: "/detail",
     params: {
       iid
     }
+  })
+}
+
+// 请求推荐
+export function getRecommend() {
+  return request({
+    url: '/recommend'
   })
 }
 
@@ -42,5 +49,14 @@ export class Comment {
   constructor(rate) {
     this.comment = rate.list[0]
     this.comment.rate = rate.cRate;
+  }
+}
+
+export class Car {
+  constructor(itemInfo, skuInfo) {
+    this.price = itemInfo.lowNowPrice
+    this.image = itemInfo.topImages[0]
+    this.color = skuInfo.props[0].list
+    this.size = skuInfo.props[1].list
   }
 }

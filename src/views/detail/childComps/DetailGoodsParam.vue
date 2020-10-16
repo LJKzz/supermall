@@ -49,6 +49,9 @@ export default {
   margin: 10px;
   font-size: 14px;
 }
+.detail-goods-param .param-rule-wrap {
+  overflow: auto;
+}
 .detail-goods-param .param-rule-wrap .param-rule-info {
   font-size: 12px;
 }
@@ -62,6 +65,7 @@ export default {
 }
 .detail-goods-param .param-info {
   border-collapse: collapse;
+  width: 100%;
 }
 .detail-goods-param .param-info td {
   border: 1px solid #666;
@@ -70,6 +74,7 @@ export default {
 }
 .detail-goods-param .param-rule {
   margin: 0 auto;
+  width: max-content;
 }
 .detail-goods-param .param-rule th,
 .detail-goods-param .param-rule td {

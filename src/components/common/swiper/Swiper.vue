@@ -1,6 +1,12 @@
 <template>
   <div id="w-swiper">
-    <div class="swiper" ref="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
+    <div
+      class="swiper"
+      ref="swiper"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+    >
       <slot></slot>
     </div>
     <slot name="indicator"></slot>
@@ -18,8 +24,12 @@
 </template>
 
 <script>
+import SwiperItem from "./SwiperItem";
 export default {
   name: "Swiper",
+  components: {
+    SwiperItem
+  },
   props: {
     interval: {
       type: Number,
@@ -44,7 +54,8 @@ export default {
       totalWidth: 0, // swiper的宽度
       swiperStyle: {}, // swiper样式
       currentIndex: 1, // 当前的index
-      scrolling: false // 是否正在滚动
+      scrolling: false, // 是否正在滚动
+      isSlide: false
     };
   },
   mounted: function() {
@@ -55,6 +66,9 @@ export default {
       // 2.开启定时器
       this.startTimer();
     }, 3000);
+    this.$nextTick(() => {
+      this.isSlide = true;
+    });
   },
   methods: {
     /**
@@ -124,26 +138,28 @@ export default {
      */
     handleDom: function() {
       // 1.获取要操作的元素
-      // let swiperEl = document.querySelector(".swiper");
-      let swiperEl = this.$refs.swiper
-      let slidesEls = swiperEl.getElementsByClassName("slide");
+      let swiperEl = this.$refs.swiper;
+      // if(this.isSlide){}
+      if (this.isSlide) {
+        let slidesEls = swiperEl.getElementsByClassName("slide");
 
+        // console.log(slidesEls);
+        // 2.保存个数
+        this.slideCount = slidesEls.length;
 
-      // 2.保存个数
-      this.slideCount = slidesEls.length;
+        // 3.如果大于1个, 那么在前后分别添加一个slide
+        if (this.slideCount > 1) {
+          let cloneFirst = slidesEls[0].cloneNode(true);
+          let cloneLast = slidesEls[this.slideCount - 1].cloneNode(true);
+          swiperEl.insertBefore(cloneLast, slidesEls[0]);
+          swiperEl.appendChild(cloneFirst);
+          this.totalWidth = swiperEl.offsetWidth;
+          this.swiperStyle = swiperEl.style;
+        }
 
-      // 3.如果大于1个, 那么在前后分别添加一个slide
-      if (this.slideCount > 1) {
-        let cloneFirst = slidesEls[0].cloneNode(true);
-        let cloneLast = slidesEls[this.slideCount - 1].cloneNode(true);
-        swiperEl.insertBefore(cloneLast, slidesEls[0]);
-        swiperEl.appendChild(cloneFirst);
-        this.totalWidth = swiperEl.offsetWidth;
-        this.swiperStyle = swiperEl.style;
+        // 4.让swiper元素, 显示第一个(目前是显示前面添加的最后一个元素)
+        this.setTransform(-this.totalWidth);
       }
-
-      // 4.让swiper元素, 显示第一个(目前是显示前面添加的最后一个元素)
-      this.setTransform(-this.totalWidth);
     },
 
     /**

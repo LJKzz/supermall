@@ -41,6 +41,7 @@ import HomeFeature from "./childComps/HomeFeature";
 
 import { getHomeMultidata, getHomeGoodsdata } from "network/home";
 import { debounce } from "common/utils";
+import { backTopMixin } from "common/mixin";
 
 export default {
   name: "Home",
@@ -54,6 +55,8 @@ export default {
     GoodsList,
     BackTop
   },
+  mixins: [backTopMixin],
+
   data() {
     return {
       banner: [],
@@ -76,7 +79,9 @@ export default {
       currentType: "pop",
       isBackTop: false,
       isTabFixed: false,
-      tabOffsetTop: 0
+      tabOffsetTop: 0,
+      saveY: 0,
+      refresh: null
     };
   },
   created() {
@@ -96,12 +101,21 @@ export default {
   },
   mounted() {
     //初始化页面，进行dom
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
+    this.refresh = debounce(this.$refs.scroll.refresh, 50);
     this.$nextTick(() => {
-      this.$bus.$on("itemImageLoad", () => {
-        refresh();
+      this.$bus.$on("homeItemImageLoad", () => {
+        this.refresh();
       });
     });
+  },
+  activated() {
+    this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+
+    console.log(this.saveY);
+  },
+  deactivated() {
+    this.saveY = this.$refs.scroll.getScroll();
   },
   methods: {
     // 方法
@@ -126,9 +140,7 @@ export default {
       this.$refs.tabControl.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 1000);
-    },
+
     scrollPosition(position) {
       this.isBackTop = -position.y >= 750;
       this.isTabFixed = -position.y >= this.tabOffsetTop - 44;
@@ -139,6 +151,7 @@ export default {
     },
     swiperImgLoad() {
       this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
+      this.refresh();
     }
   }
 };

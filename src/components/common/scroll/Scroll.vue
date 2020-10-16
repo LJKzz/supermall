@@ -30,6 +30,7 @@ export default {
       click: true,
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad
+      // eventPassthrough: "horizontal"
     });
     //  监听滚动
     this.scroll.on("scroll", position => {
@@ -52,6 +53,10 @@ export default {
     },
     refresh() {
       this.scroll && this.scroll.refresh();
+      console.log("刷新了一下");
+    },
+    getScroll() {
+      return this.scroll ? this.scroll.y : 0;
     }
   }
 };

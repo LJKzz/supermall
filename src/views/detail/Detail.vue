@@ -71,14 +71,13 @@ export default {
       getTops: null,
       detailTops: [],
       currentIndex: 0,
+      carInfo: {},
       isCar: false
     };
   },
   created() {
     this.id = this.$route.query.q;
     getDetail(this.id).then(res => {
-      console.log(res);
-
       const data = res.result;
       // 轮播图
       this.topImages = res.result.itemInfo.topImages;
@@ -150,8 +149,8 @@ export default {
     openCar() {
       this.isCar = true;
     },
-    addToCar() {
-      // console.log("addToCar");
+    addToCar(addList) {
+      console.log(addList);
       // 购物车信息
       const product = {};
       product.image = this.topImages[0];
@@ -160,9 +159,16 @@ export default {
       product.shopName = this.shop.name;
       product.shopLogo = this.shop.logo;
       product.id = this.id;
-      product.num = 1;
+      product.num = addList.count;
+      product.color = addList.color;
+      product.size = addList.size;
       product.check = false;
-      this.$store.commit("addCart", product);
+      this.$store.dispatch("addCart", product).then(res => {
+        this.$toast.show(res, 2000);
+        console.log(this.$toast);
+        
+      });
+      this.closeCar();
     },
     closeCar() {
       this.isCar = false;

@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-add-car">
+  <div class="detail-add-car" v-if="carInfo">
     <div class="add-car-top">
       <div class="goods-img">
         <img :src="carInfo.image" alt />
@@ -18,8 +18,8 @@
             class="color-item"
             v-for="(item,index) in carInfo.color"
             :key="index"
-            @click="colorClick(item.name)"
-            :class="{'active':isColor}"
+            @click="colorClick(index)"
+            :class="{'active':index===isColor}"
           >{{item.name}}</div>
         </div>
       </div>
@@ -30,7 +30,8 @@
             class="size-item"
             v-for="(item,index) in carInfo.size"
             :key="index"
-            @click="sizeClick(item.name)"
+            @click="sizeClick(index)"
+            :class="{'active':index===isSize}"
           >{{item.name}}</div>
         </div>
       </div>
@@ -56,13 +57,17 @@ export default {
       default() {
         return {};
       }
+    },
+    isCar: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       goodCount: 1,
-      isColor: false,
-      isSize: false
+      isColor: 0,
+      isSize: 0
     };
   },
   methods: {
@@ -79,13 +84,17 @@ export default {
       this.$emit("closeCar");
     },
     addToCar() {
-      this.$emit("addToCar");
+      const addList = {};
+      addList.color = this.carInfo.color[this.isColor].name;
+      addList.size = this.carInfo.size[this.isSize].name;
+      addList.count = this.goodCount;
+      this.$emit("addToCar", addList);
     },
-    colorClick() {
-      this.isColor = true;
+    colorClick(index) {
+      this.isColor = index;
     },
-    sizeClick() {
-      this.isSize = true;
+    sizeClick(index) {
+      this.isSize = index;
     }
   }
 };
@@ -153,8 +162,8 @@ export default {
 .add-car-middle > div {
   margin: 10px 0;
 }
-.detail-add-car .add-car-middle .car-color .color-tag .active {
-  background-color: #444;
+.detail-add-car .add-car-middle .active {
+  background-color: #444 !important;
 }
 .add-car-middle .car-color h4,
 .add-car-middle .car-size h4 {
@@ -166,21 +175,21 @@ export default {
   justify-content: space-between;
   text-align: center;
   flex-wrap: wrap;
+  font-size: 14px;
 }
 .car-color .color-tag .color-item {
   width: 30%;
   background-color: #ddd;
-  margin: 10px 0;
   border-radius: 10px;
-  padding: 10px 5px;
+  padding: 5px;
+  margin-bottom: 10px;
 }
 .car-size .size-tag .size-item {
   background-color: #ddd;
-  width: 60px;
-  /* height: 20px; */
-  line-height: 20px;
-  padding: 5px;
-  border-radius: 30px;
+  width: 50px;
+  line-height: 18px;
+  padding: 5px 8px;
+  border-radius: 18px;
 }
 .add-car-middle .buy-count {
   display: flex;

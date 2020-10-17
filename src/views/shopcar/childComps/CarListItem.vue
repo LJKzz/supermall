@@ -1,7 +1,7 @@
 <template>
   <div class="car-list-item">
     <div class="item-shop-info">
-      <check-button />
+      <!-- <check-button /> -->
       <div class="logo">
         <img :src="itemInfo.shopLogo" alt />
       </div>
@@ -14,7 +14,11 @@
       </div>
       <div class="good-info">
         <div class="info-text">{{itemInfo.title}}</div>
-        <div class="info-price left">￥{{itemInfo.price}}</div>
+        <div class="info-style">
+          <span>{{itemInfo.color}}</span>
+          <span>;{{itemInfo.size}}</span>
+        </div>
+        <div class="info-price left">￥{{itemInfo.price*itemInfo.num}}</div>
         <div class="info-num right">×{{itemInfo.num}}</div>
       </div>
     </div>
@@ -92,6 +96,17 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  margin: 20px 0 30px;
+  /* margin: 20px 0 30px; */
+}
+.good-info .info-style {
+  margin: 15px 0;
+  font-size: 14px;
+}
+.good-info .info-num {
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 3px;
 }
 </style>

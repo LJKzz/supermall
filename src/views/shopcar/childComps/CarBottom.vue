@@ -1,31 +1,59 @@
 <template>
   <div class="car-bottom clear-fix">
     <div class="bottom-left left">
-      <check-button :isChecked="isChecked" @click.native="check()" />
+      <check-button :isChecked="isSelectAll" @click.native="check()" />
       <span>全选</span>
     </div>
     <div class="bottom-right right">
-      <div class="bottom-price">合计:￥</div>
-      <div class="bottom-sell">结算</div>
+      <div class="bottom-price">合计:￥{{totalPrice}}</div>
+      <div class="bottom-sell" @click="clearCar">结算</div>
     </div>
   </div>
 </template>
 
 <script>
 import CheckButton from "components/content/checkButton/CheckButton";
+import { mapGetters } from "vuex";
 export default {
   name: "CarBottom",
-  data() {
-    return {
-      isChecked: false
-    };
-  },
   components: {
     CheckButton
   },
+  computed: {
+    ...mapGetters(["carLength", "carList"]),
+
+    totalPrice() {
+      return this.carList
+        .filter(item => {
+          return item.check;
+        })
+        .reduce((preValue, item) => {
+          return preValue + item.price * item.num;
+        }, 0)
+        .toFixed(2);
+    },
+    isSelectAll() {
+      if (this.carList.length == 0) {
+        return false;
+      }
+      return !this.carList.find(item => !item.check);
+    }
+  },
   methods: {
     check() {
-      this.isChecked = !this.isChecked;
+      if (this.isSelectAll) {
+        this.carList.forEach(item => (item.check = false));
+      } else {
+        this.carList.forEach(item => (item.check = true));
+      }
+    },
+    clearCar() {
+      if (this.carList.length == 0) {
+        this.$toast.show("购物车为空", 2000);
+      }
+      if (!this.carList.find(item => item.check)) {
+        this.$toast.show("请至少选择一件商品", 2000);
+      }
     }
   }
 };
@@ -50,7 +78,7 @@ export default {
   margin: 0;
 }
 .car-bottom .bottom-right {
-  width: 50%;
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: space-around;

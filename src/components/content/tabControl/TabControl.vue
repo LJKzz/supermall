@@ -30,7 +30,11 @@ export default {
   methods: {
     current(index) {
       this.currentIndex = index;
-      this.$emit("tabControlClick", index);
+      if (this.$route.path.indexOf("/category") !== -1) {
+        this.$emit("cateTabControlClick", index);
+      } else if (this.$route.path.indexOf("/home") !== -1) {
+        this.$emit("tabControlClick", index);
+      }
     }
   }
 };

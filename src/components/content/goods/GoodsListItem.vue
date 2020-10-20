@@ -1,11 +1,11 @@
 <template>
   <div class="goods-list-item" @click="toDetail(goodsId)">
-    <img @load="imageLoad" :src="showImage" alt />
+    <img @load="imageLoad" v-lazy="showImage" alt />
     <h5>{{goodsItem.title}}</h5>
     <span class="price">
       <span>￥</span>
       <span class="big-price">{{price[0]}}</span>
-      <span class="small-price">.{{price[1]}}</span>
+      <span v-if="price.length===2" class="small-price">.{{price[1]}}</span>
     </span>
     <span class="cfav">{{goodsItem.cfav}}人收藏</span>
   </div>
@@ -29,10 +29,13 @@ export default {
   },
   created() {
     this.getPrice();
+    // console.log(this.goodsItem);
   },
   computed: {
     showImage() {
-      return this.goodsItem.image || this.goodsItem.show.img;
+      return (
+        this.goodsItem.image || this.goodsItem.img || this.goodsItem.show.img
+      );
     },
     goodsId() {
       return this.goodsItem.iid || this.goodsItem.shop_id;
@@ -40,13 +43,15 @@ export default {
   },
   methods: {
     getPrice() {
-      this.price = this.goodsItem.price.split(".");
+      this.price = this.goodsItem.price.toString().split(".");
     },
     imageLoad() {
-      if (this.$route.path.indexOf("/home")) {
+      if (this.$route.path.indexOf("/home") !== -1) {
         this.$bus.$emit("homeItemImageLoad");
-      } else if (this.$route.path.indexOf("/detail")) {
+      } else if (this.$route.path.indexOf("/detail") !== -1) {
         this.$bus.$emit("detailItemImageLoad");
+      } else if (this.$route.path.indexOf("/category") !== -1) {
+        this.$bus.$emit("cateItemImageLoad");
       }
     },
     toDetail(id) {

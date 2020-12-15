@@ -1,0 +1,44 @@
+{
+  "id": "2146841",
+  "name": "SuperMall",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "964865",
+      "name": "icon-shop-car",
+      "font_class": "gouwuche",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "8429459",
+      "name": "Message",
+      "font_class": "Message",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "10682833",
+      "name": "会员卡",
+      "font_class": "huiyuanka",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "12502264",
+      "name": "下载app",
+      "font_class": "xiazaiapp",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "15098111",
+      "name": "open shop",
+      "font_class": "openshop",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    }
+  ]
+}

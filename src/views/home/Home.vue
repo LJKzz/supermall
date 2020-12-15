@@ -18,10 +18,19 @@
       @scroll="scrollPosition"
       @pullingUp="loadMore"
     >
-      <home-swiper class="home-swiper" :banner="banner" @swiperImgLoad="swiperImgLoad" />
+      <home-swiper
+        class="home-swiper"
+        :banner="banner"
+        @swiperImgLoad="swiperImgLoad"
+      />
+
       <home-recommend class="home-recommend" :recommend="recommend" />
       <home-feature />
-      <tab-control ref="tabControl" :title="title" @tabControlClick="tabClick" />
+      <tab-control
+        ref="tabControl"
+        :title="title"
+        @tabControlClick="tabClick"
+      />
       <goods-list :goods="showGoods" />
     </scroll>
     <back-top @click.native="backClick" v-if="isBackTop" />
@@ -53,7 +62,7 @@ export default {
     HomeFeature,
     TabControl,
     GoodsList,
-    BackTop
+    BackTop,
   },
   mixins: [backTopMixin],
 
@@ -65,27 +74,27 @@ export default {
       goods: {
         pop: {
           page: 0,
-          list: []
+          list: [],
         },
         new: {
           page: 0,
-          list: []
+          list: [],
         },
         sell: {
           page: 0,
-          list: []
-        }
+          list: [],
+        },
       },
       currentType: "pop",
       isBackTop: false,
       isTabFixed: false,
       tabOffsetTop: 0,
       saveY: 0,
-      refresh: null
+      refresh: null,
     };
   },
   created() {
-    getHomeMultidata().then(res => {
+    getHomeMultidata().then((res) => {
       this.banner = res.data.banner.list;
       this.recommend = res.data.recommend.list;
     });
@@ -97,7 +106,7 @@ export default {
     //计算属性
     showGoods() {
       return this.goods[this.currentType].list;
-    }
+    },
   },
   mounted() {
     //初始化页面，进行dom
@@ -111,8 +120,6 @@ export default {
   activated() {
     this.$refs.scroll.refresh();
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
-
-    console.log(this.saveY);
   },
   deactivated() {
     this.saveY = this.$refs.scroll.getScroll();
@@ -121,7 +128,7 @@ export default {
     // 方法
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
-      getHomeGoodsdata(type, page).then(res => {
+      getHomeGoodsdata(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
       });
     },
@@ -152,8 +159,8 @@ export default {
     swiperImgLoad() {
       this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
       this.refresh();
-    }
-  }
+    },
+  },
 };
 </script>
 

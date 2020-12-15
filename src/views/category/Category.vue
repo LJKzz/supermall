@@ -116,7 +116,7 @@ export default {
     menuClick(index) {
       this.currentIndex = index;
       this.getSubCategories(this.currentIndex);
-      this.currentType = "pop";
+      this.$refs.scroll.scrollTo(0, 0);
     },
     tabControlClick(index) {
       switch (index) {
@@ -141,7 +141,8 @@ export default {
   padding-bottom: 49px;
 }
 .category .nav-bar {
-  background-color: #ff5339;
+  background-color: var(--color-tint);
+
   color: #fff;
   font-weight: bold;
   letter-spacing: 2px;

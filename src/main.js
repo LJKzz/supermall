@@ -10,6 +10,8 @@ import FastClick from 'fastclick'
 import LazyLoad from 'vue-lazyload'
 // 自定义插件
 import toast from './components/common/toast'
+
+import './assets/icon/iconfont.css'
 Vue.use(toast)
 
 FastClick.attach(document.body)

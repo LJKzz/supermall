@@ -25,7 +25,7 @@ export default {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   align-content: flex-start;
 }

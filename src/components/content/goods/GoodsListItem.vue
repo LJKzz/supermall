@@ -2,12 +2,12 @@
   <div class="goods-list-item" @click="toDetail(goodsId)">
     <img @load="imageLoad" v-lazy="showImage" alt />
     <h5>{{goodsItem.title}}</h5>
-    <span class="price">
+    <span class="price" v-if="price">
       <span>￥</span>
       <span class="big-price">{{price[0]}}</span>
       <span v-if="price.length===2" class="small-price">.{{price[1]}}</span>
     </span>
-    <span class="cfav">{{goodsItem.cfav}}人收藏</span>
+    <span class="cfav">{{goodsCafc}}人收藏</span>
   </div>
 </template>
 
@@ -39,11 +39,15 @@ export default {
     },
     goodsId() {
       return this.goodsItem.iid || this.goodsItem.shop_id;
+    },
+    goodsCafc() {
+      return this.goodsItem.cfav || "0";
     }
   },
   methods: {
     getPrice() {
-      this.price = this.goodsItem.price.toString().split(".");
+      if (this.goodsItem.price)
+        this.price = this.goodsItem.price.toString().split(".");
     },
     imageLoad() {
       if (this.$route.path.indexOf("/home") !== -1) {

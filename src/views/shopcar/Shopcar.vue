@@ -4,14 +4,14 @@
       <div slot="center">购物车({{carLength}})</div>
     </nav-bar>
     <car-list />
-    <car-bottom/>
+    <car-bottom />
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import CarList from "./childComps/CarList";
-import CarBottom from './childComps/CarBottom'
+import CarBottom from "./childComps/CarBottom";
 import { mapGetters } from "vuex";
 
 export default {
@@ -32,7 +32,8 @@ export default {
   height: 100vh;
 }
 .shopcar .nav-bar {
-  background-color: #ff5339;
+  background-color: var(--color-tint);
+
   color: #fff;
   font-weight: bold;
   font-size: 16px;
